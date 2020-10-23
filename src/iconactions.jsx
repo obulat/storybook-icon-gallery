@@ -1,7 +1,6 @@
 import css from "styled-jsx/css";
 import { itemStyles } from "./shared";
 import React from "react";
-import { useState } from "@storybook/addons";
 
 const styles = css` /* stylelint-disable-line */
 
@@ -58,9 +57,8 @@ const styles = css` /* stylelint-disable-line */
     .action-button:focus {
         outline: none;
     }
-    .action-button.inactive {
+    .action-button.idle {
         opacity: 0;
-        pointer-events: none;
     }
 `;
 
@@ -69,29 +67,43 @@ const UP = 38;
 const DOWN = 40;
 const SPACE = 32;
 const ESC = 27;
-function copyIcon() {
-    console.log("Copied icon!");
-}
 
-export function IconActions({ context, item }) {
-
-    const { getCopy, getDisplayName } = context;
-
-
-    // const [state, setState] = useState("idle");
-    // const [activeType, setActiveType] = useState(undefined);
-    const state = "idle";
-    const setState = (item) => item;
-    const activeType = "copy";
-    const setActiveType = (item) => item;
-    function copy(as) {
+export function IconActions({ context, name, icon }) {
+    const { getCopyValue } = context;
+    const copyValue = getCopyValue({ name, size: 30 });
+    const [state, setState] = React.useState("idle");
+    const [activeType, setActiveType] = React.useState(undefined);
+    function perform(as) {
         if (state === "copied") {return;}
-        copyIcon(item, as).then(() => {
-            setState("copied");
-        });
+        if (as === "download") {
+            // Create a link element
+            const link = document.createElement("a");
+            link.type = "image/svg+xml";
+            link.href = icon;
+            link.download = copyValue;
+
+            // Append link to the body
+            document.body.appendChild(link);
+            // Dispatch click event on the link
+            // This is necessary as link.click() does not work on the latest firefox
+            link.dispatchEvent(
+                new MouseEvent("click", {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                })
+            );
+            // Remove link from body
+            document.body.removeChild(link);
+        } else {
+            navigator.clipboard.writeText(copyValue)
+                .then(value =>
+                    console.log("Copied!", value, copyValue) );
+        }
+        setState("copied");
     }
 
-    function activate() {
+    function activate(event) {
         if (state === "idle") {
             setState("active");
         }
@@ -103,7 +115,6 @@ export function IconActions({ context, item }) {
             setActiveType(undefined);
         }
     }
-
     function onKeyDown(e) {
         if ([ENTER, SPACE, UP, DOWN, ESC].includes(e.which)) {
             e.preventDefault();
@@ -113,40 +124,46 @@ export function IconActions({ context, item }) {
             setActiveType(undefined);
         } else if (state === "idle" && [ENTER, SPACE, DOWN].includes(e.which)) {
             setState("active");
-            setActiveType("svg");
-        } else if (activeType === "svg" && e.which === DOWN) {
-            setActiveType("jsx");
-        } else if (activeType === "jsx" && e.which === UP) {
-            setActiveType("svg");
+            setActiveType("copy");
+        } else if (activeType === "copy" && e.which === DOWN) {
+            setActiveType("download");
+        } else if (activeType === "download" && e.which === UP) {
+            setActiveType("copy");
         } else if (
             state === "active" &&
             activeType &&
             [ENTER, SPACE].includes(e.which)
         ) {
-            copy(activeType);
+            perform(activeType);
         }
     }
 
-    // useEffect(() => {
-    //     if (state === "copied") {
-    //         const handler = window.setTimeout(() => {
-    //             setState("idle");
-    //         }, 1000);
-    //
-    //         return () => {
-    //             window.clearTimeout(handler);
-    //         };
-    //     }
-    // }, [state]);
+    React.useEffect(() => {
+        if (state === "copied") {
+            const handler = window.setTimeout(() => {
+                setState("idle");
+            }, 1000);
+
+            return () => {
+                window.clearTimeout(handler);
+            };
+        }
+    }, [state]);
 
 
     const className = "icon-actions";
-    const onCopyClick = e => {console.log("Copying", e);};
-    const onDownloadClick = e => {console.log("Downloading",e);};
-    console.log("Icon actions: ", context, item);
+    const onCopyClick = e => {
+        setActiveType("copy");
+        perform("copy");
+    };
+    const onDownloadClick = e => {
+        setActiveType("download");
+        perform("download");
+    };
+
 
     return (
-        <div className={`${className} sbdocs sbdocs-ig actions-container`}
+        <div className={`${className} ${state==="active"? "active": ""} sbdocs sbdocs-ig actions-container`}
             onMouseEnter={activate}
             onMouseLeave={deactivate}
             onClick={activate}

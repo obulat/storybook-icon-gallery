@@ -1,8 +1,9 @@
 import { any, func } from "prop-types";
-import React, { Children, cloneElement } from "react";
+import React, { Children } from "react";
 import css from "styled-jsx/css";
 import { IconItem } from "./icon-item";
 import { IconActions } from "./iconactions";
+import { IconWrapper } from "./icon-container";
 
 const styles = css` /* stylelint-disable-line */
     .icon-gallery {
@@ -26,16 +27,6 @@ const styles = css` /* stylelint-disable-line */
         min-height: 2rem;
     }
 `;
-
-function IconWrapper(item, context) {
-    return (
-        <div className="icon-wrapper sbdocs sbdocs-ig">
-            {cloneElement(item, { context: context })}
-            <IconActions item={item} context={context} />
-            <style jsx>{styles}</style>
-        </div>
-    );
-}
 
 export function IconGallery({ getCopyValue, getDisplayName, children }) {
     const context = {
@@ -72,7 +63,8 @@ IconGallery.propTypes = {
 
 IconGallery.defaultProps = {
     getDisplayName: ({ name }) => name,
-    getCopyValue: ({ name, size, isVariant }) => isVariant ? `${name}${size}` : name
+    getCopyValue: ({ name }) => `${name}.svg`
 };
 
 IconGallery.Item = IconItem;
+IconGallery.Actions = IconActions;

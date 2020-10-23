@@ -16,6 +16,13 @@ import {
     VideoIcon
 } from "@orbit-ui/icons";
 
+import {
+    ChevronDownR,
+    ChevronLeftR,
+    ChevronRightR,
+    ChevronUpR
+} from "../src/assets";
+
 <Meta title="Usage" />
 
 <Anchor storyId="usage--single-variant" />
@@ -75,23 +82,41 @@ Variants are optionnal, you can still use this component if your design system d
 <Preview>
     <Story name="no-variants">
         <IconGallery>
-            <IconGallery.Item name="add">
-                <AddIcon />
+            <IconGallery.Item name="chevron-up">
+                <ChevronUpR />
             </IconGallery.Item>
-            <IconGallery.Item name="calendar">
-                <CalendarIcon />
+            <IconGallery.Item name="chevron-left">
+                <ChevronLeftR />
             </IconGallery.Item>
-            <IconGallery.Item name="check">
-                <CheckIcon />
+            <IconGallery.Item name="chevron-down">
+                <ChevronDownR />
             </IconGallery.Item>
-            <IconGallery.Item name="arrow">
-                <ArrowIcon />
+            <IconGallery.Item name="chevron-right">
+                <ChevronRightR />
             </IconGallery.Item>
-            <IconGallery.Item name="circle" size={24}>
-                <CircleIcon24 />
+            <IconGallery.Item name="chevron-up">
+                <ChevronUpR />
             </IconGallery.Item>
-            <IconGallery.Item name="csv">
-                <CsvIcon />
+            <IconGallery.Item name="chevron-left">
+                <ChevronLeftR />
+            </IconGallery.Item>
+            <IconGallery.Item name="chevron-down">
+                <ChevronDownR />
+            </IconGallery.Item>
+            <IconGallery.Item name="chevron-right">
+                <ChevronRightR />
+            </IconGallery.Item>
+            <IconGallery.Item name="chevron-up">
+                <ChevronUpR />
+            </IconGallery.Item>
+            <IconGallery.Item name="chevron-left">
+                <ChevronLeftR />
+            </IconGallery.Item>
+            <IconGallery.Item name="chevron-down">
+                <ChevronDownR />
+            </IconGallery.Item>
+            <IconGallery.Item name="chevron-right">
+                <ChevronRightR />
             </IconGallery.Item>
         </IconGallery>
     </Story>
@@ -99,7 +124,7 @@ Variants are optionnal, you can still use this component if your design system d
 
 ### Render function
 
-The icon gallery have been design for flexibility at the expense of redundacy. To stop repeating over and over the same boilerplate code, you can define a custom render function.
+The icon gallery have been design for flexibility at the expense of redundancy. To stop repeating over and over the same boilerplate code, you can define a custom render function.
 
 ```jsx
 function renderItem(name, Icon) {
@@ -115,7 +140,7 @@ function renderItem(name, Icon) {
     <Story name="render function">
         <IconGallery>
             {renderItem("add", AddIcon)}
-            {renderItem("video", null, VideoIcon)}
+            {renderItem("video", VideoIcon)}
             {renderItem("calendar", CalendarIcon)}
         </IconGallery>
     </Story>
