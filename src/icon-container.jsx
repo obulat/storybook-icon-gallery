@@ -25,8 +25,6 @@ const iconFile = name => {
     const filename = (name.split("-").map(word => {
         return word.charAt(0).toUpperCase() + word.slice(1);
     })).join('');
-    console.log("icon filename: ", filename);
-    console.log("Imports: ", icons, icons['ChevronUp']);
     return icons[filename];
 };
 
