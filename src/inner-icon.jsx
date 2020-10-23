@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import css from "styled-jsx/css";
-import { CheckmarkIcon } from "./assets";
 
 const { className, styles } = css.resolve` /* stylelint-disable-line */
     .icon {
@@ -15,7 +14,8 @@ const { className, styles } = css.resolve` /* stylelint-disable-line */
 
     .copy {
         position: absolute;
-        opacity: 0;
+        top: 0;
+        opacity: 0.5;
         transition: opacity .15s ease-in;
         display: flex;
         justify-content: center;
@@ -23,7 +23,21 @@ const { className, styles } = css.resolve` /* stylelint-disable-line */
         padding: .25rem;
         background-color: #0E1C3D;
         width: 100%;
-        height: 100%;
+        height: 50%;
+        box-sizing: content-box;
+    }
+    .download {
+        position: absolute;
+        bottom: 0;
+        opacity: 0.5;
+        transition: opacity .15s ease-in;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: .25rem;
+        background-color: #0E1C3D;
+        width: 100%;
+        height: 50%;
         box-sizing: content-box;
     }
 
@@ -34,14 +48,14 @@ const { className, styles } = css.resolve` /* stylelint-disable-line */
         transition: opacity .15s ease-in;
     }
 
-    .copy-action {
+    .copy-action, .download-action {
         position: absolute;
         color: #FFF;
         font-weight: 500;
         font-size: .75rem;
         cursor: pointer;
-        width: 100%;
-        height: 100%;
+        width: 200%;
+        height: 40px;
         background-color: transparent;
         border: 0;
         outline: none;
@@ -56,8 +70,8 @@ const { className, styles } = css.resolve` /* stylelint-disable-line */
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        height: 100%;
+        width: 200%;
+        height: 200%;
         /* stylelint-disable-next-line */
         animation-duration: 500ms;
         animation-name: slidein;
@@ -90,7 +104,9 @@ const { className, styles } = css.resolve` /* stylelint-disable-line */
 
 export function InnerIcon({ icon, copyValue }) {
     const [copySucceeded, setCopySucceeded] = useState(false);
+    const [downloadSucceeded, setDownloadSucceeded] = useState(false);
     const textAreaRef = useRef(null);
+    const downloadTextAreaRef = useRef(null);
 
     useEffect(() => {
         let timeoutId = null;
@@ -103,14 +119,34 @@ export function InnerIcon({ icon, copyValue }) {
 
         return () => clearTimeout(timeoutId);
     }, [copySucceeded]);
+    useEffect(() => {
+        let timeoutId = null;
 
-    const onIconClick = () => {
+        if (downloadSucceeded) {
+            timeoutId = setTimeout(() => {
+                setDownloadSucceeded(false);
+            }, 1000);
+        }
+
+        return () => clearTimeout(timeoutId);
+    }, [downloadSucceeded]);
+
+    const onCopyClick = () => {
         copyToClipboard();
     };
 
-    const onIconEnterKey = event => {
+    const onCopyEnterKey = event => {
         if (event.keyCode === 13) {
             copyToClipboard();
+        }
+    };
+    const onDownloadClick = () => {
+        downloadIcon();
+    };
+
+    const onDownloadEnterKey = event => {
+        if (event.keyCode === 13) {
+            downloadIcon();
         }
     };
 
@@ -120,31 +156,13 @@ export function InnerIcon({ icon, copyValue }) {
 
         setCopySucceeded(true);
     };
+    const downloadIcon = () => {
+        setDownloadSucceeded(true);
+    };
 
     return (
-        <div className={`${className} icon sbdocs sbdocs-ig-icon`} onKeyDown={onIconEnterKey} tabIndex={0}>
+        <div className={`${className} icon sbdocs sbdocs-ig-icon`}>
             {icon}
-            <div className={`${className} copy sbdocs sbdocs-ig-copy`} tabIndex={-1}>
-                {!copySucceeded && <button
-                    className={`${className} copy-action sbdocs sbdocs-ig-copy-action`}
-                    onClick={onIconClick}
-                    type="button"
-                    tabIndex={-1}
-                >
-                    Copy
-                </button>}
-                {copySucceeded && <div className={`${className} copy-succeeded sbdocs sbdocs-ig-copy-succeeded`} tabIndex={-1}>
-                    <CheckmarkIcon className={`${className} copy-checkmark sbdocs sbdocs-ig-copy-checkmark`} tabIndex={-1} />
-                </div>}
-            </div>
-            <form className={`${className} copy-form`}>
-                <textarea
-                    readOnly
-                    ref={textAreaRef}
-                    value={copyValue}
-                    tabIndex={-1}
-                />
-            </form>
             {styles}
         </div>
     );

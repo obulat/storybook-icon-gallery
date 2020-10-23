@@ -6,8 +6,13 @@ import { CONTEXT_SHAPE, itemStyles } from "./shared";
 
 const styles = css` /* stylelint-disable-line */
     .icon-wrapper {
+        box-sizing: border-box;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        border: 1px solid gray;
+        border-radius: 5px;
     }
 
     .icon-container {
@@ -24,20 +29,17 @@ function renderIcon(icon, size) {
 
 export function IconItem({ name, size, copyValue, children, context }) {
     const { getDisplayName, getCopyValue } = context;
-
     const icon = Children.only(children);
     const displayName = getDisplayName({ name });
 
     return (
         <div className="item sbdocs sbdocs-ig-item">
             <div className="name sbdocs sbdocs-ig-name">{displayName}</div>
-            <div className="icon-wrapper sbdocs-ig-icon-wrapper">
-                <div className="icon-container sbdocs-ig-icon-container" style={{ width: size, height: size }}>
-                    <InnerIcon
-                        icon={renderIcon(icon, size)}
-                        copyValue={copyValue ? copyValue : getCopyValue({ name, size, isVariant: false })}
-                    />
-                </div>
+            <div className="icon-container sbdocs-ig-icon-container" style={{ height: size }}>
+                <InnerIcon
+                    icon={renderIcon(icon, size)}
+                    copyValue={copyValue ? copyValue : getCopyValue({ name, size, isVariant: false })}
+                />
             </div>
             <style jsx>{itemStyles}</style>
             <style jsx>{styles}</style>
@@ -69,5 +71,5 @@ IconItem.propTypes = {
 };
 
 IconItem.defaultProps = {
-    size: 32
+    size: 30
 };

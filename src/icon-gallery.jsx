@@ -1,21 +1,40 @@
 import { any, func } from "prop-types";
-import { Children, cloneElement } from "react";
+import React, { Children, cloneElement } from "react";
 import css from "styled-jsx/css";
 import { IconItem } from "./icon-item";
-import { IconVariant } from "./icon-variant";
-import { IconVariants } from "./icon-variants";
+import { IconActions } from "./iconactions";
 
 const styles = css` /* stylelint-disable-line */
     .icon-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+        grid-gap: 2rem;
+    }
+    .icon-wrapper {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        position: relative;
+        height: 6rem;
+        border: 1px solid gray;
+        border-radius: 5px;
+    }
+
+    .icon-container {
+        min-width: 2rem;
+        min-height: 2rem;
     }
 `;
 
-function renderItem(item, context) {
-    return cloneElement(item, {
-        context: context
-    });
+function IconWrapper(item, context) {
+    return (
+        <div className="icon-wrapper sbdocs sbdocs-ig">
+            {cloneElement(item, { context: context })}
+            <IconActions item={item} context={context} />
+            <style jsx>{styles}</style>
+        </div>
+    );
 }
 
 export function IconGallery({ getCopyValue, getDisplayName, children }) {
@@ -26,7 +45,7 @@ export function IconGallery({ getCopyValue, getDisplayName, children }) {
 
     return (
         <div className="icon-gallery sbdocs sbdocs-ig">
-            {Children.map(children, x => renderItem(x, context))}
+            {Children.map(children, x => IconWrapper(x, context))}
             <style jsx>{styles}</style>
         </div>
     );
@@ -56,6 +75,4 @@ IconGallery.defaultProps = {
     getCopyValue: ({ name, size, isVariant }) => isVariant ? `${name}${size}` : name
 };
 
-IconGallery.Variants = IconVariants;
-IconGallery.Variant = IconVariant;
 IconGallery.Item = IconItem;

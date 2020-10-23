@@ -2,23 +2,16 @@ import { Anchor, Meta, Preview, Story, Props } from "@storybook/addon-docs/block
 import { IconGallery } from "../src";
 import {
     AddIcon,
-    AddIcon24,
     AddUserIcon,
     ArrowIcon,
-    ArrowIcon24,
     CalendarIcon,
-    CalendarIcon24,
     CheckIcon,
-    CheckIcon24,
     CircleIcon,
     CircleIcon24,
     ClearFilterIcon,
-    ClearFilterIcon24,
     CloseIcon,
-    CloseIcon24,
     CommunicationIcon,
     CompareIcon,
-    CompareIcon24,
     CsvIcon,
     VideoIcon
 } from "@orbit-ui/icons";
@@ -54,146 +47,26 @@ import { IconGallery } from "storybook-icon-gallery";
 <Props
     components={{
         "IconGallery": IconGallery,
-        "IconGallery.Variants": IconGallery.Variants,
-        "IconGallery.Variant": IconGallery.Variant,
         "IconGallery.Item": IconGallery.Item
     }}
 />
 
 ## Usage
 
-export function renderItem(name, Icon24, Icon32) {
+export function renderItem(name, Icon) {
     return (
-        <IconGallery.Variants name={name}>
-            <IconGallery.Variant size={24}>
-                {Icon24 && <Icon24 />}
-            </IconGallery.Variant>
-            <IconGallery.Variant size={32}>
-                {Icon32 && <Icon32 />}
-            </IconGallery.Variant>
-        </IconGallery.Variants>
+        <IconGallery.Item name={name} size={30}>
+                {Icon && <Icon />}
+        </IconGallery.Item>
     );
 }
 
-### Single variant
-
-An item can have a single variant.
-
-<Preview>
-    <Story name="single variant">
-        <IconGallery>
-            <IconGallery.Variants name="add">
-                <IconGallery.Variant size={24}>
-                    <AddIcon24 />
-                </IconGallery.Variant>
-            </IconGallery.Variants>
-        </IconGallery>
-    </Story>
-</Preview>
-
-### Multiple variants
-
-An item can have multiple variants.
-
-<Preview>
-    <Story name="multiple variants">
-        <IconGallery>
-            <IconGallery.Variants name="add">
-                <IconGallery.Variant size={24}>
-                    <AddIcon24 />
-                </IconGallery.Variant>
-                <IconGallery.Variant size={32}>
-                    <AddIcon />
-                </IconGallery.Variant>
-            </IconGallery.Variants>
-        </IconGallery>
-    </Story>
-</Preview>
-
-### Different number of variants
-
-Each item can have a different number of variants.
-
-<Preview>
-    <Story name="different number of variants">
-        <IconGallery>
-            <IconGallery.Variants name="add">
-                <IconGallery.Variant size={24}>
-                    <AddIcon24 />
-                </IconGallery.Variant>
-                <IconGallery.Variant size={32}>
-                    <AddIcon />
-                </IconGallery.Variant>
-            </IconGallery.Variants>
-            <IconGallery.Variants name="video">
-                <IconGallery.Variant size={32}>
-                    <VideoIcon />
-                </IconGallery.Variant>
-            </IconGallery.Variants>
-            <IconGallery.Variants name="calendar">
-                <IconGallery.Variant size={24}>
-                    <CalendarIcon24 />
-                </IconGallery.Variant>
-                <IconGallery.Variant size={32}>
-                    <CalendarIcon />
-                </IconGallery.Variant>
-            </IconGallery.Variants>
-            <IconGallery.Variants name="check">
-                <IconGallery.Variant size={24}>
-                </IconGallery.Variant>
-                <IconGallery.Variant size={32}>
-                    <CheckIcon />
-                </IconGallery.Variant>
-            </IconGallery.Variants>
-        </IconGallery>
-    </Story>
-</Preview>
-
-### Copy value
-
-A custom copy value can be specified with the `copyValue` prop.
-
-<Preview>
-    <Story name="copy value">
-        <IconGallery>
-            <IconGallery.Variants name="add">
-                <IconGallery.Variant size={24} copyValue="AddIcon24">
-                    <AddIcon24 />
-                </IconGallery.Variant>
-            </IconGallery.Variants>
-        </IconGallery>
-    </Story>
-</Preview>
 
 To apply a custom pattern for all icons copy value, a function can be provided to the `getCopyValue` prop of the `IconGallery` component.
-
-<Preview>
-    <Story name="get copy value">
-        <IconGallery getCopyValue={({ name, size }) => `${name.toUpperCase()}-${size}`}>
-            <IconGallery.Variants name="add">
-                <IconGallery.Variant size={24}>
-                    <AddIcon24 />
-                </IconGallery.Variant>
-            </IconGallery.Variants>
-        </IconGallery>
-    </Story>
-</Preview>
 
 ### Items display name
 
 To apply a custom pattern for the display name of all the items, a function can be provided to the `getDisplayName` prop of the `IconGallery` component.
-
-<Preview>
-    <Story name="get display name">
-        <IconGallery getDisplayName={({ name }) => name.toUpperCase()}>
-            <IconGallery.Variants name="add">
-                <IconGallery.Variant size={24}>
-                    <AddIcon24 />
-                </IconGallery.Variant>
-            </IconGallery.Variants>
-        </IconGallery>
-    </Story>
-</Preview>
 
 ### No variants
 
@@ -229,16 +102,11 @@ Variants are optionnal, you can still use this component if your design system d
 The icon gallery have been design for flexibility at the expense of redundacy. To stop repeating over and over the same boilerplate code, you can define a custom render function.
 
 ```jsx
-function renderItem(name, Icon24, Icon32) {
+function renderItem(name, Icon) {
     return (
-        <IconGallery.Variants name={name}>
-            <IconGallery.Variant size={24}>
-                {Icon24 && <Icon24 />}
-            </IconGallery.Variant>
-            <IconGallery.Variant size={32}>
-                {Icon32 && <Icon32 />}
-            </IconGallery.Variant>
-        </IconGallery.Variants>
+        <IconGallery.Item name={name} size={30}>
+                {Icon && <Icon />}
+            </IconGallery.Item>
     );
 }
 ```
@@ -246,32 +114,32 @@ function renderItem(name, Icon24, Icon32) {
 <Preview>
     <Story name="render function">
         <IconGallery>
-            {renderItem("add", AddIcon24, AddIcon)}
+            {renderItem("add", AddIcon)}
             {renderItem("video", null, VideoIcon)}
-            {renderItem("calendar", CalendarIcon24, CalendarIcon)}
+            {renderItem("calendar", CalendarIcon)}
         </IconGallery>
     </Story>
 </Preview>
 
 ### Multiple lines
 
-An icon gallery can have multiple lines. The component will try to squeeze as much icons as possible on every line.
+An icon gallery can have multiple lines. The component will try to squeeze as many icons as possible on every line.
 
 <Preview>
     <Story name="multiple lines">
         <IconGallery>
-            {renderItem("add", AddIcon24, AddIcon)}
-            {renderItem("add user", null, AddUserIcon)}
-            {renderItem("arrow", ArrowIcon24, ArrowIcon)}
-            {renderItem("video", null, VideoIcon)}
-            {renderItem("calendar", CalendarIcon24, CalendarIcon)}
-            {renderItem("check", CheckIcon24, CheckIcon)}
-            {renderItem("circle", CircleIcon24, CircleIcon)}
-            {renderItem("clear filter", ClearFilterIcon24, ClearFilterIcon)}
-            {renderItem("close", CloseIcon24, CloseIcon)}
-            {renderItem("communication", null, CommunicationIcon)}
-            {renderItem("compare", CompareIcon24, CompareIcon)}
-            {renderItem("csv", null, CsvIcon)}
+            {renderItem("add",  AddIcon)}
+            {renderItem("add user", AddUserIcon)}
+            {renderItem("arrow", ArrowIcon)}
+            {renderItem("video", VideoIcon)}
+            {renderItem("calendar", CalendarIcon)}
+            {renderItem("check", CheckIcon)}
+            {renderItem("circle", CircleIcon)}
+            {renderItem("clear filter", ClearFilterIcon)}
+            {renderItem("close", CloseIcon)}
+            {renderItem("communication", CommunicationIcon)}
+            {renderItem("compare", CompareIcon)}
+            {renderItem("csv", CsvIcon)}
         </IconGallery>
     </Story>
 </Preview>
@@ -286,7 +154,7 @@ An icon gallery can have multiple lines. The component will try to squeeze as mu
 >
     <div className="border-box">
         <IconGallery>
-            {renderItem("add", AddIcon24, AddIcon)}
+            {renderItem("add", AddIcon)}
         </IconGallery>
     </div>
 </Story>
