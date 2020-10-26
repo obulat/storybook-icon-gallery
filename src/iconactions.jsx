@@ -62,12 +62,6 @@ const styles = css` /* stylelint-disable-line */
     }
 `;
 
-const ENTER = 13;
-const UP = 38;
-const DOWN = 40;
-const SPACE = 32;
-const ESC = 27;
-
 export function IconActions({ context, name, icon }) {
     const { getCopyValue } = context;
     const copyValue = getCopyValue({ name });
