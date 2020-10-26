@@ -70,72 +70,23 @@ const ESC = 27;
 
 export function IconActions({ context, name, icon }) {
     const { getCopyValue } = context;
-    const copyValue = getCopyValue({ name, size: 30 });
+    const copyValue = getCopyValue({ name });
+    // state can be "idle"/"copied"/"active"
     const [state, setState] = React.useState("idle");
+    // can be "svg" | "name | "download"
     const [activeType, setActiveType] = React.useState(undefined);
-    function perform(as) {
-        if (state === "copied") {return;}
-        if (as === "download") {
-            // Create a link element
-            const link = document.createElement("a");
-            link.type = "image/svg+xml";
-            link.download = copyValue;
-            const svgBlob = new Blob([icon], { type:"image/svg+xml;charset=utf-8" });
-            link.href = URL.createObjectURL(svgBlob);
 
-            // Append link to the body
-            document.body.appendChild(link);
-            // Dispatch click event on the link
-            // This is necessary as link.click() does not work on the latest firefox
-            link.dispatchEvent(
-                new MouseEvent("click", {
-                    bubbles: true,
-                    cancelable: true,
-                    view: window
-                })
-            );
-            // Remove link from body
-            document.body.removeChild(link);
-        } else {
-            navigator.clipboard.writeText(copyValue)
-                .then(value =>
-                    console.log("Copied!", value, copyValue) );
-        }
-        setState("copied");
-    }
 
-    function activate(event) {
+
+    function activate() {
         if (state === "idle") {
             setState("active");
         }
     }
-
     function deactivate() {
         if (state === "active") {
             setState("idle");
             setActiveType(undefined);
-        }
-    }
-    function onKeyDown(e) {
-        if ([ENTER, SPACE, UP, DOWN, ESC].includes(e.which)) {
-            e.preventDefault();
-        }
-        if (state === "active" && e.which === ESC) {
-            setState("idle");
-            setActiveType(undefined);
-        } else if (state === "idle" && [ENTER, SPACE, DOWN].includes(e.which)) {
-            setState("active");
-            setActiveType("copy");
-        } else if (activeType === "copy" && e.which === DOWN) {
-            setActiveType("download");
-        } else if (activeType === "download" && e.which === UP) {
-            setActiveType("copy");
-        } else if (
-            state === "active" &&
-            activeType &&
-            [ENTER, SPACE].includes(e.which)
-        ) {
-            perform(activeType);
         }
     }
 
@@ -151,17 +102,66 @@ export function IconActions({ context, name, icon }) {
         }
     }, [state]);
 
+    React.useEffect(() => {
+
+        function perform(action) {
+            if (state === "copied") {return;}
+            if (action === "download") {
+                // Create a link element
+                const link = document.createElement("a");
+                link.type = "image/svg+xml";
+                link.download = copyValue;
+                const svgBlob = new Blob([icon], { type:"image/svg+xml;charset=utf-8" });
+                link.href = URL.createObjectURL(svgBlob);
+
+                // Append link to the body
+                document.body.appendChild(link);
+                // Dispatch click event on the link
+                // This is necessary action link.click() does not work on the latest firefox
+                link.dispatchEvent(
+                    new MouseEvent("click", {
+                        bubbles: true,
+                        cancelable: true,
+                        view: window
+                    })
+                );
+                // Remove link from body
+                document.body.removeChild(link);
+            }
+            else if (action === "copyName"){
+                navigator.clipboard.writeText(copyValue)
+                    .then(() => console.log());
+            }
+            else {
+                navigator.clipboard.writeText(icon)
+                    .then(() => console.log());
+            }
+            setState("copied");
+        }
+
+        if (!activeType) {return;}
+        const action = { svg: "copySvg", "name": "copyName", download: "download" }[activeType];
+        perform(action);
+        const handler = window.setTimeout(() => {
+            setActiveType(undefined);
+        }, 2000);
+
+        return () => {
+            window.clearTimeout(handler);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeType]);
 
     const className = "icon-actions";
-    const onCopyClick = e => {
-        setActiveType("copy");
-        perform("copy");
+    const onCopySvgClick = () => {
+        setActiveType("svg");
     };
-    const onDownloadClick = e => {
+    const onCopyNameClick = () => {
+        setActiveType("name");
+    };
+    const onDownloadClick = () => {
         setActiveType("download");
-        perform("download");
     };
-
 
     return (
         <div className={`${className} ${state==="active"? "active": ""} sbdocs sbdocs-ig actions-container`}
@@ -171,10 +171,17 @@ export function IconActions({ context, name, icon }) {
         >
             <button
                 className={`${className} ${state} action-button copy-action sbdocs sbdocs-ig`}
-                onClick={onCopyClick}
+                onClick={onCopySvgClick}
                 type="button"
             >
-                Copy
+                {activeType === "svg" ? "Copied!" : "Copy svg"}
+            </button>
+            <button
+                className={`${className} ${state} action-button copy-action sbdocs sbdocs-ig`}
+                onClick={onCopyNameClick}
+                type="button"
+            >
+                {activeType === "name" ? "Copied!" : "Copy name"}
             </button>
             <button
                 className={`${className} ${state} action-button download-action sbdocs sbdocs-ig`}

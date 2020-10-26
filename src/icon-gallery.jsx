@@ -1,10 +1,9 @@
 import { any, func } from "prop-types";
 import React, { Children } from "react";
 import css from "styled-jsx/css";
-import { IconItem } from "./icon-item";
 import { IconActions } from "./iconactions";
 import { IconWrapper } from "./icon-container";
-import { icons, ChevronUpSrc } from "./assets";
+import { InnerIcon } from "./inner-icon";
 
 const styles = css` /* stylelint-disable-line */
     .icon-gallery {
@@ -53,14 +52,14 @@ IconGallery.propTypes = {
     getDisplayName: func,
     /**
      * Called during the rendering of a variant to retrieve the value to copy to the clipboard when the matching variant is clicked.
-     * @param {{ name: string, size: number, isVariant: boolean }} data
+     * @param {{ name: string }} data
      * @returns {string}
      */
     getCopyValue: func,
     /**
      * @ignore
      */
-    children: any.isRequired
+    children: any
 };
 
 IconGallery.defaultProps = {
@@ -68,5 +67,5 @@ IconGallery.defaultProps = {
     getCopyValue: ({ name }) => `${name}.svg`
 };
 
-IconGallery.Item = IconItem;
+IconGallery.Item = InnerIcon;
 IconGallery.Actions = IconActions;

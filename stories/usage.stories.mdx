@@ -7,7 +7,6 @@ import {
     CalendarIcon,
     CheckIcon,
     CircleIcon,
-    CircleIcon24,
     ClearFilterIcon,
     CloseIcon,
     CommunicationIcon,
@@ -15,13 +14,6 @@ import {
     CsvIcon,
     VideoIcon
 } from "@orbit-ui/icons";
-
-import {
-    ChevronDownR,
-    ChevronLeftR,
-    ChevronRightR,
-    ChevronUpR
-} from "../src/assets";
 
 <Meta title="Usage" />
 
@@ -79,45 +71,46 @@ To apply a custom pattern for the display name of all the items, a function can 
 
 Variants are optional, you can still use this component if your design system doesn't support multiple variants of icons.
 
+### Arrows
 <Preview>
     <Story name="no-variants">
         <IconGallery>
-            <IconGallery.Item name="chevron-up">
-                <ChevronUpR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-left">
-                <ChevronLeftR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-down">
-                <ChevronDownR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-right">
-                <ChevronRightR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-up">
-                <ChevronUpR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-left">
-                <ChevronLeftR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-down">
-                <ChevronDownR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-right">
-                <ChevronRightR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-up">
-                <ChevronUpR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-left">
-                <ChevronLeftR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-down">
-                <ChevronDownR />
-            </IconGallery.Item>
-            <IconGallery.Item name="chevron-right">
-                <ChevronRightR />
-            </IconGallery.Item>
+            <IconGallery.Item name="chevron-up" />
+            <IconGallery.Item name="chevron-left" />
+            <IconGallery.Item name="chevron-down" />
+            <IconGallery.Item name="chevron-right" />
+            <IconGallery.Item name="angle-up" />
+            <IconGallery.Item name="angle-left" />
+            <IconGallery.Item name="angle-down" />
+            <IconGallery.Item name="angle-right" />
+            <IconGallery.Item name="caret-up" />
+            <IconGallery.Item name="caret-left" />
+            <IconGallery.Item name="caret-down" />
+            <IconGallery.Item name="caret-right" />
+        </IconGallery>
+    </Story>
+</Preview>
+
+### CC Icons - Standard
+<Preview>
+    <Story name="cc-icons">
+        <IconGallery>
+            <IconGallery.Item name="cc-logo" />
+            <IconGallery.Item name="cc-by" />
+            <IconGallery.Item name="cc-nc" />
+            <IconGallery.Item name="cc-nd" />
+            <IconGallery.Item name="cc-sa" />
+            <IconGallery.Item name="cc-zero" />
+        </IconGallery>
+    </Story>
+</Preview>
+
+### CC Icons - NonStandard
+<Preview>
+    <Story>
+        <IconGallery>
+            <IconGallery.Item name="cc-heart" />
+            <IconGallery.Item name="cc-heart-filled
         </IconGallery>
     </Story>
 </Preview>

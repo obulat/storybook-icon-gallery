@@ -1,5 +1,5 @@
 import { any, number, shape, string } from "prop-types";
-import { Children, cloneElement } from "react";
+import React, { Children, cloneElement } from "react";
 import css from "styled-jsx/css";
 import { InnerIcon } from "./inner-icon";
 import { CONTEXT_SHAPE, itemStyles } from "./shared";
@@ -19,25 +19,20 @@ const styles = css` /* stylelint-disable-line */
         min-width: 2rem;
         min-height: 2rem;
     }
+
 `;
 
-function renderIcon(icon, size) {
-    return cloneElement(icon, {
-        style: { width: size, height: size }
-    });
+function renderIcon(icon) {
+    return cloneElement(icon);
 }
 
-export function IconItem({ name, size, copyValue, children, context }) {
-    const { getDisplayName, getCopyValue } = context;
+export function IconItem({ children }) {
     const icon = Children.only(children);
-    const displayName = getDisplayName({ name });
 
     return (
         <div className="item sbdocs sbdocs-ig-item">
-            <div className="name sbdocs sbdocs-ig-name">{displayName}</div>
             <InnerIcon
-                icon={renderIcon(icon, size)}
-                copyValue={copyValue ? copyValue : getCopyValue({ name, size, isVariant: false })}
+                icon={renderIcon(icon)}
             />
             <style jsx>{itemStyles}</style>
             <style jsx>{styles}</style>

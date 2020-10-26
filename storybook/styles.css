@@ -57,3 +57,8 @@ details + details {
 .border-box *::after {
     box-sizing: border-box;
 }
+
+.sbdocs-ig-icon svg {
+    height: 2rem;
+    width: 2rem;
+}
