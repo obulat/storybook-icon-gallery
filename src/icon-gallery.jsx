@@ -4,6 +4,7 @@ import css from "styled-jsx/css";
 import { IconItem } from "./icon-item";
 import { IconActions } from "./iconactions";
 import { IconWrapper } from "./icon-container";
+import { icons, ChevronUpSrc } from "./assets";
 
 const styles = css` /* stylelint-disable-line */
     .icon-gallery {

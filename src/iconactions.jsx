@@ -79,8 +79,9 @@ export function IconActions({ context, name, icon }) {
             // Create a link element
             const link = document.createElement("a");
             link.type = "image/svg+xml";
-            link.href = icon;
             link.download = copyValue;
+            const svgBlob = new Blob([icon], { type:"image/svg+xml;charset=utf-8" });
+            link.href = URL.createObjectURL(svgBlob);
 
             // Append link to the body
             document.body.appendChild(link);
