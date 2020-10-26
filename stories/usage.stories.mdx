@@ -77,7 +77,7 @@ To apply a custom pattern for the display name of all the items, a function can 
 
 ### No variants
 
-Variants are optionnal, you can still use this component if your design system dont support multiple variants of icons.
+Variants are optional, you can still use this component if your design system doesn't support multiple variants of icons.
 
 <Preview>
     <Story name="no-variants">
@@ -130,8 +130,8 @@ The icon gallery have been design for flexibility at the expense of redundancy. 
 function renderItem(name, Icon) {
     return (
         <IconGallery.Item name={name} size={30}>
-                {Icon && <Icon />}
-            </IconGallery.Item>
+            {Icon && <Icon />}
+        </IconGallery.Item>
     );
 }
 ```

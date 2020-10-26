@@ -26,6 +26,7 @@ const { className, styles } = css.resolve` /* stylelint-disable-line */
         height: 50%;
         box-sizing: content-box;
     }
+
     .download {
         position: absolute;
         bottom: 0;

@@ -3,11 +3,11 @@ import { itemStyles } from "./shared";
 import React from "react";
 
 const styles = css` /* stylelint-disable-line */
-
     .icon-container {
         min-width: 2rem;
         min-height: 2rem;
     }
+
     .actions-container {
         position: absolute;
         bottom: 0;
@@ -26,6 +26,7 @@ const styles = css` /* stylelint-disable-line */
         flex-direction: column;
         justify-content: space-between;
     }
+
     .action-button {
         margin: 0;
         overflow: visible;
@@ -47,16 +48,19 @@ const styles = css` /* stylelint-disable-line */
         white-space: nowrap;
         border-radius: 4px;
     }
+
     .action-button:hover {
         opacity: 1;
         background-color: #767676;
         border-color: #767676;
-        color: #fff;
+        color: white;
         text-decoration: none;
     }
+
     .action-button:focus {
         outline: none;
     }
+
     .action-button.idle {
         opacity: 0;
     }

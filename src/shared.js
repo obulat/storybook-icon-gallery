@@ -11,6 +11,7 @@ export const itemStyles = css` /* stylelint-disable-line */
         padding-bottom: .75rem;
         text-align: center;
     }
+
     .copy-succeeded svg, .download-succeeded svg {
         height: 100%;
         line-height: 1rem;

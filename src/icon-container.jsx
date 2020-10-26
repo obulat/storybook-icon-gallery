@@ -4,7 +4,6 @@ import { IconActions } from "./iconactions";
 import * as icons from "../src/assets";
 
 const styles = css` /* stylelint-disable-line */
-
     .icon-wrapper {
         display: flex;
         flex-direction: column;
@@ -24,7 +23,8 @@ const styles = css` /* stylelint-disable-line */
 const iconFile = name => {
     const filename = (name.split("-").map(word => {
         return word.charAt(0).toUpperCase() + word.slice(1);
-    })).join('');
+    })).join("");
+
     return icons[filename];
 };
 

@@ -11,6 +11,7 @@ const styles = css` /* stylelint-disable-line */
         grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
         grid-gap: 2rem;
     }
+
     .icon-wrapper {
         display: flex;
         flex-direction: column;
