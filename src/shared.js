@@ -3,8 +3,9 @@ import css from "styled-jsx/css";
 
 export const itemStyles = css` /* stylelint-disable-line */
     .item {
+        display: flex;
         flex-direction: column;
-
+        height: 70%;
     }
 
     .name {

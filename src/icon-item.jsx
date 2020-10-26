@@ -35,12 +35,10 @@ export function IconItem({ name, size, copyValue, children, context }) {
     return (
         <div className="item sbdocs sbdocs-ig-item">
             <div className="name sbdocs sbdocs-ig-name">{displayName}</div>
-            <div className="icon-container sbdocs-ig-icon-container" style={{ height: size }}>
-                <InnerIcon
-                    icon={renderIcon(icon, size)}
-                    copyValue={copyValue ? copyValue : getCopyValue({ name, size, isVariant: false })}
-                />
-            </div>
+            <InnerIcon
+                icon={renderIcon(icon, size)}
+                copyValue={copyValue ? copyValue : getCopyValue({ name, size, isVariant: false })}
+            />
             <style jsx>{itemStyles}</style>
             <style jsx>{styles}</style>
         </div>

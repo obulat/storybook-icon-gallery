@@ -10,6 +10,9 @@ const styles = css` /* stylelint-disable-line */
 
     .actions-container {
         position: absolute;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 5px;
         bottom: 0;
         left: 0;
         right: 0;
@@ -17,13 +20,6 @@ const styles = css` /* stylelint-disable-line */
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-    .actions-container {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 5px;
-        display: flex;
-        flex-direction: column;
         justify-content: space-between;
     }
 
@@ -37,7 +33,7 @@ const styles = css` /* stylelint-disable-line */
         text-transform: uppercase;
         font-weight: 600;
         line-height: 0;
-        border: 0.125rem solid #767676;;
+        border: 0.125rem solid #767676;
         color: #767676;
         background-color: white;
         font-size: 1.43rem;
