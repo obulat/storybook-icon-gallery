@@ -5,22 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import * as icons from "./assets";
 
 const { styles } = css.resolve` /* stylelint-disable-line */
-
-     .icon-wrapper {
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        border: 1px solid gray;
-        border-radius: 5px;
-    }
-
-    .icon-container {
-        min-width: 2rem;
-        min-height: 2rem;
-    }
-
     .icon {
         position: relative;
         display: flex;
@@ -52,7 +36,7 @@ export function InnerIcon({ name, children }) {
 
     return (
         <div className="item sbdocs sbdocs-ig-item">
-            <div className="item sbdocs sbdocs-ig-icon" {...options} />
+            <div className="icon sbdocs sbdocs-ig-icon" {...options} />
             <style jsx>{itemStyles}</style>
             <style jsx>{styles}</style>
         </div>

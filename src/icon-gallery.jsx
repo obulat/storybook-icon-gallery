@@ -11,22 +11,6 @@ const styles = css` /* stylelint-disable-line */
         grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
         grid-gap: 2rem;
     }
-
-    .icon-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        position: relative;
-        height: 6rem;
-        border: 1px solid gray;
-        border-radius: 5px;
-    }
-
-    .icon-container {
-        min-width: 2rem;
-        min-height: 2rem;
-    }
 `;
 
 export function IconGallery({ getCopyValue, getDisplayName, children }) {

@@ -18,9 +18,13 @@ const styles = css` /* stylelint-disable-line */
     }
 
     .icon-wrapper {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: space-around;
+        border: 1px solid gray;
+        border-radius: 5px;
     }
 
     .name {

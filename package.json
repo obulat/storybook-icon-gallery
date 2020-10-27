@@ -1,7 +1,7 @@
 {
   "name": "storybook-icon-gallery",
   "version": "1.2.1",
-  "description": "An icon gallery for Storybook docs that support multiple icon variants.",
+  "description": "An icon gallery for Storybook docs that support copying or downloading icon svg.",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -28,7 +28,7 @@
     "eslint:pkg": "eslint --ext .js,.jsx src",
     "stylelint": "run-s stylelint:*",
     "stylelint:pkg": "stylelint \"src/**/*.(js|jsx)\"",
-    "deploy-docs": "netlify deploy --prod --dir=storybook/dist/docs --site=df98c158-8a37-4882-b8b9-59540f32c204",
+    "deploy-docs": "netlify deploy --prod --dir=storybook/dist/docs --site=<site-id>",
     "netlify-ci-docs": "yarn install && yarn build:docs",
     "prepublishOnly": "yarn build:pkg",
     "release": "yarn login && yarn np --no-cleanup --no-tests"

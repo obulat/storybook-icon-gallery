@@ -70,8 +70,6 @@ export function IconActions({ context, name, icon }) {
     // can be "svg" | "name | "download"
     const [activeType, setActiveType] = React.useState(undefined);
 
-
-
     function activate() {
         if (state === "idle") {
             setState("active");
