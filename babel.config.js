@@ -30,7 +30,8 @@ module.exports = {
             }
         ],
         "babel-plugin-react-require",
-        "styled-jsx/babel"
+        "styled-jsx/babel",
+        "@babel/plugin-proposal-export-default-from"
     ].filter(Boolean)
 };
 

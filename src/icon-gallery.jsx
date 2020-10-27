@@ -1,22 +1,17 @@
 import { any, func } from "prop-types";
-import { Children, cloneElement } from "react";
+import React, { Children } from "react";
 import css from "styled-jsx/css";
-import { IconItem } from "./icon-item";
-import { IconVariant } from "./icon-variant";
-import { IconVariants } from "./icon-variants";
+import { IconActions } from "./iconactions";
+import { IconWrapper } from "./icon-container";
+import { InnerIcon } from "./inner-icon";
 
 const styles = css` /* stylelint-disable-line */
     .icon-gallery {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+        grid-gap: 2rem;
     }
 `;
-
-function renderItem(item, context) {
-    return cloneElement(item, {
-        context: context
-    });
-}
 
 export function IconGallery({ getCopyValue, getDisplayName, children }) {
     const context = {
@@ -26,7 +21,7 @@ export function IconGallery({ getCopyValue, getDisplayName, children }) {
 
     return (
         <div className="icon-gallery sbdocs sbdocs-ig">
-            {Children.map(children, x => renderItem(x, context))}
+            {Children.map(children, x => IconWrapper(x, context))}
             <style jsx>{styles}</style>
         </div>
     );
@@ -41,21 +36,20 @@ IconGallery.propTypes = {
     getDisplayName: func,
     /**
      * Called during the rendering of a variant to retrieve the value to copy to the clipboard when the matching variant is clicked.
-     * @param {{ name: string, size: number, isVariant: boolean }} data
+     * @param {{ name: string }} data
      * @returns {string}
      */
     getCopyValue: func,
     /**
      * @ignore
      */
-    children: any.isRequired
+    children: any
 };
 
 IconGallery.defaultProps = {
     getDisplayName: ({ name }) => name,
-    getCopyValue: ({ name, size, isVariant }) => isVariant ? `${name}${size}` : name
+    getCopyValue: ({ name }) => `${name}.svg`
 };
 
-IconGallery.Variants = IconVariants;
-IconGallery.Variant = IconVariant;
-IconGallery.Item = IconItem;
+IconGallery.Item = InnerIcon;
+IconGallery.Actions = IconActions;
